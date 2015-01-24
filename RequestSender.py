@@ -79,7 +79,6 @@ class RequestSender:
       "Content-Type": "application/json"
     }
     r = requests.post(self.endPointBatchV2, data = json.dumps(payload), headers = headers)
-    print(str(payload))
     self.checkResponse(r)
 
 
