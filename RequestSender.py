@@ -36,7 +36,6 @@ class RequestSender:
     #self.setupDebug()
 
   def checkResponse(self, response):
-    print(response.url)
     if response.status_code != 200: 
       self.logFile.write("Error on request: with url " + response.url + " Status code " + str(response.status_code) + " with content " + response.content + "\n")
  

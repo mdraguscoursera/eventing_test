@@ -20,6 +20,7 @@ while(1):
 #    "http://localhost:9000/infoBatch.v2",
 #    log)
 
+  currentTime = datetime.datetime.now()
   sender = RequestSender.RequestSender(
     "https://eventing.coursera.org/info",
     "https://eventing.coursera.org/infoBatch",
@@ -54,12 +55,8 @@ while(1):
     burstNumber * requestsPerBurst,
     burstNumber
   )
-  currentTime = datetime.datetime.today()
-  nextWakeUp = datetime.datetime(
-    currentTime.year,
-    currentTime.month,
-    currentTime.day,
-    currentTime.hour + 1)
+  nextHour = currentTime + datetime.timedelta(hours=1)
+  nextWakeUp = datetime.datetime(nextHour.year, nextHour.month, nextHour.day, nextHour.hour, 15)
   log.write("Finished burst: " + str(burstNumber) + " at time:" + str(currentTime) +" \n")
   burstNumber += 1 
   time.sleep((nextWakeUp-currentTime).seconds)
