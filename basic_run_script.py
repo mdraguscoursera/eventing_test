@@ -32,32 +32,39 @@ while(1):
     numEventsPerBurst,
     burstNumber * numEventsPerBurst,
     burstNumber)
+  log.write("Finished GET V1")
   tester.sendPostTestv1(
     numEventsPerBurst,
     burstNumber * numEventsPerBurst,
     burstNumber)
+  log.write("Finished POST V1")
   tester.sendBatchTestv1(
     requestsPerBurst,
     numEventsPerBurst / requestsPerBurst,
     burstNumber * requestsPerBurst,
     burstNumber)
+  log.write("Finished BATCH V1")
   tester.sendGetTestv2(
     numEventsPerBurst,
     burstNumber * numEventsPerBurst,
     burstNumber)
+  log.write("Finished GET V2")
   tester.sendPostTestv2(
     numEventsPerBurst,
     burstNumber * numEventsPerBurst,
     burstNumber) 
+  log.write("Finished POST V2")
   tester.sendBatchTestv2(
     requestsPerBurst,
     numEventsPerBurst / requestsPerBurst,
     burstNumber * requestsPerBurst,
     burstNumber
   )
+  log.write("Finished BATCH V2")
   nextHour = currentTime + datetime.timedelta(hours=1)
   nextWakeUp = datetime.datetime(nextHour.year, nextHour.month, nextHour.day, nextHour.hour, 15)
   log.write("Finished burst: " + str(burstNumber) + " at time:" + str(currentTime) +" \n")
+  log.flush()
   burstNumber += 1 
   time.sleep((nextWakeUp-currentTime).seconds)
 
