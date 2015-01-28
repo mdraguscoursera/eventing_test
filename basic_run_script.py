@@ -20,6 +20,7 @@ while(1):
 #    "http://localhost:9000/infoBatch.v2",
 #    log)
 
+  time.sleep(10)
   currentTime = datetime.datetime.now()
   sender = RequestSender.RequestSender(
     "https://eventing.coursera.org/info",

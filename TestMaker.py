@@ -15,17 +15,18 @@ class TestMaker:
     eventsPerBurst,
     requestsPerBurst,
     burstSequenceNumber):
-
+    import uuid
     params = {
       "timestamp": int(time.time()),
       "source_region": self.region,
-      "insetance_id": self.instanceId,
+      "instance_id": self.instanceId,
       "request_sequence_number": requestSequenceNumber,
       "burst_sequence_number": burstSequenceNumber,
       "index_in_burst": indexInBurst,
       "burst_freq": self.burstFreq,
       "events_per_burst": eventsPerBurst,
-      "requests_per_burst": requestsPerBurst
+      "requests_per_burst": requestsPerBurst,
+      "event_guid": str(uuid.uuid4())
     }
     return params
 
@@ -34,7 +35,8 @@ class TestMaker:
       import json
       values = json.dumps(
         self.__makeValue(
-          currentRequests + index, index,
+          currentRequests + index,
+          index,
           numRequests,
           numRequests,
           burstSequenceNumber))
@@ -62,10 +64,11 @@ class TestMaker:
       for batchIndex in range(numPerBatch):
         values = self.__makeValue(
           currentRequests + index,
-          index,
+          batchIndex + index * numPerBatch,
+          numRequests * numPerBatch,
           numRequests,
-          numPerBatch * numRequests,
           burstSequenceNumber)
+        values['batchIndex'] = batchIndex
         requests.append({
           "timestamp": int(time.time()),
           "key": "testing.eventing_beacon_batch_post",
@@ -92,7 +95,8 @@ class TestMaker:
   def sendGetTestv2(self, numRequests, currentRequests, burstSequenceNumber):
     for index in range(numRequests):
       values = self.__makeValue(
-          currentRequests + index, index,
+          currentRequests + index,
+          index,
           numRequests,
           numRequests,
           burstSequenceNumber)
@@ -123,10 +127,11 @@ class TestMaker:
         import uuid
         values = self.__makeValue(
           currentRequests + index,
-          index,
+          batchIndex + index * numPerBatch,
+          numRequests * numPerBatch,
           numRequests,
-          numPerBatch * numRequests,
           burstSequenceNumber)
+        values['batchIndex'] = batchIndex
         requests.append({
           "clientTimestamp": int(time.time()),
           "key": "testing.eventing_v2_beacon_batch",
