@@ -52,9 +52,10 @@ class TestMaker:
         numRequests,
         numRequests,
         burstSequenceNumber)
+      import json
       self.requestSender.sendPostRequest({
         "key": "testing.eventing_beacon_single_post",
-        "value": values})
+        "value": json.dumps(values)})
      
 
   def sendBatchTestv1(self, numRequests, numPerBatch, currentRequests, burstSequenceNumber):
