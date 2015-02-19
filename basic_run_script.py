@@ -1,6 +1,7 @@
 import RequestSender
 import TestMaker
 import time
+import sys
 import uuid
 import datetime
 
@@ -35,27 +36,42 @@ while(1):
       burstNumber * numEventsPerBurst,
       burstNumber)
     log.write("Finished GET V1\n")
+  except:
+    print "Unexpected error:", sys.exc_info()[0]
+  try:
     tester.sendPostTestv1(
       numEventsPerBurst,
       burstNumber * numEventsPerBurst,
       burstNumber)
     log.write("Finished POST V1\n")
+  except:
+    print "Unexpected error:", sys.exc_info()[0]
+  try:
     tester.sendBatchTestv1(
       requestsPerBurst,
       numEventsPerBurst / requestsPerBurst,
       burstNumber * requestsPerBurst,
       burstNumber)
     log.write("Finished BATCH V1\n")
+  except:
+    print "Unexpected error:", sys.exc_info()[0]
+  try:
     tester.sendGetTestv2(
       numEventsPerBurst,
       burstNumber * numEventsPerBurst,
       burstNumber)
     log.write("Finished GET V2\n")
+  except:
+    print "Unexpected error:", sys.exc_info()[0]
+  try:
     tester.sendPostTestv2(
       numEventsPerBurst,
       burstNumber * numEventsPerBurst,
       burstNumber) 
     log.write("Finished POST V2\n")
+  except:
+    print "Unexpected error:", sys.exc_info()[0]
+  try:
     tester.sendBatchTestv2(
       requestsPerBurst,
       numEventsPerBurst / requestsPerBurst,
